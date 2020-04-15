@@ -229,11 +229,11 @@ localhost:8000/api/v1/note/1/unarchive
 
 # choice of technology and the reasons
 
-* golang
+### golang
 - scalability and performance 
 - easily deployable, memory safe native binary
 
-* postgre
+### postgre
 - object-relational database system that uses and extends the SQL language combined with many features 
 - safely store and scale the data workloads
 
