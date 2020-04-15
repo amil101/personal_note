@@ -20,11 +20,15 @@ Make sure Database is running properly.
 ## How to run
 1. Setup $GOPATH environment variable
 2. checkout this repo somewhere into your $GOPATH
-3. run newly generated executable file (The above command will create a binary executable file)
+3. checkout this repo and run dev_run.sh
+4. run newly generated executable file (The above command will create a binary executable file)
 api will be served at
-localhost:[port]/api/v1/ ( default port : 8000)
-## Api Requests 
-# APIS
+```node
+localhost:[port]/api/v1/
+```
+( default port : 8000)
+
+# APISApi Requests 
 
 ## API postman samples
 
@@ -169,8 +173,6 @@ localhost:8000/api/v1/note/unarchived
 
 ## delete a note
 
-### if archived, delete archived note too
-
 * api
 
 ```node
@@ -215,8 +217,6 @@ localhost:8000/api/v1/note/1/archive
 localhost:8000/api/v1/note/1/unarchive
 ```
 
-* sample body
-
 * sample success response body
 
 ```node
@@ -230,12 +230,12 @@ localhost:8000/api/v1/note/1/unarchive
 # choice of technology and the reasons
 
 * golang
-scalability and performance 
-easily deployable, memory safe native binary
+- scalability and performance 
+- easily deployable, memory safe native binary
 
 * postgre
-object-relational database system that uses and extends the SQL language combined with many features 
-safely store and scale the data workloads
+- object-relational database system that uses and extends the SQL language combined with many features 
+- safely store and scale the data workloads
 
 # improvements
 
