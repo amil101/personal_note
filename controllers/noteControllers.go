@@ -15,7 +15,7 @@ var CreateNote = func(w http.ResponseWriter, r *http.Request) {
 	user := r.Context().Value("user").(string) //Grab the id of the user that send the request
 
 	note := &models.Note{}
-	
+
 	err := json.NewDecoder(r.Body).Decode(note)
 	if err != nil {
 		u.Respond(w, u.Message(false, "Error while decoding request body"))
@@ -49,7 +49,7 @@ var DeleteNote = func(w http.ResponseWriter, r *http.Request) {
 
 	params := mux.Vars(r)
 	id := params["id"]
-	
+
 	resp := models.Delete(id)
 	u.Respond(w, resp)
 }
@@ -59,7 +59,7 @@ var ArchiveNote = func(w http.ResponseWriter, r *http.Request) {
 
 	params := mux.Vars(r)
 	id := params["id"]
-	
+
 	resp := models.Archive(id, true)
 	u.Respond(w, resp)
 }
@@ -69,7 +69,7 @@ var UnArchiveNote = func(w http.ResponseWriter, r *http.Request) {
 
 	params := mux.Vars(r)
 	id := params["id"]
-	
+
 	resp := models.Archive(id, false)
 	u.Respond(w, resp)
 }
@@ -93,4 +93,3 @@ var GetUnArtchivedList = func(w http.ResponseWriter, r *http.Request) {
 	resp["data"] = data
 	u.Respond(w, resp)
 }
-

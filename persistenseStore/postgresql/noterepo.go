@@ -6,7 +6,7 @@ import (
 	"github.com/jinzhu/gorm"
 )
 
-// basic structure for personal note
+// Note structure for personal note
 type Note struct {
 	gorm.Model
 	id      string // note Id
@@ -23,14 +23,14 @@ returns message and true if the requirement is met
 func (note *Note) Validate() (map[string]interface{}, bool) {
 
 	if note.Content == "" {
-		return u.Message(false, "Note should be on the payload"), false
+		return u.Message(false, "Note should have a content"), false
 	}
 
 	//All the required parameters are present
 	return u.Message(true, "success"), true
 }
 
-// Create a note 
+// Create a note
 func (note *Note) Create() map[string]interface{} {
 
 	if resp, ok := note.Validate(); !ok {
@@ -51,21 +51,11 @@ func (note *Note) Update(id string) map[string]interface{} {
 		return resp
 	}
 
-	err := GetDB().Model(&note).Where("ID = ?", id).UpdateColumn("content", note.Content).Error
-	if err != nil {
-		return nil
+	if GetNote(id) == nil {
+		return u.Message(false, "Invalid Note ID")
 	}
 
-	resp := u.Message(true, "success")
-	return resp
-}
-
-// Archive a note using note id
-func Archive(id string, flag bool) map[string]interface{} {
-
-	note := &Note{}
-
-	err := GetDB().Model(&note).Where("ID = ?", id).UpdateColumn("archive", flag).Error
+	err := GetDB().Model(&note).Where("ID = ?", id).UpdateColumn("content", note.Content).Error
 	if err != nil {
 		return nil
 	}
@@ -79,7 +69,29 @@ func Delete(id string) map[string]interface{} {
 
 	note := &Note{}
 
-	err := GetDB().Where("ID = ?", id).Delete(note).Error
+	// check note is already deleted
+	if GetNote(id) == nil {
+		return u.Message(false, "Note is already deleted")
+	}
+
+	err := GetDB().Where("ID = ?", id).Unscoped().Delete(note).Error
+	if err != nil {
+		return nil
+	}
+	resp := u.Message(true, "success")
+	return resp
+}
+
+// Archive a note using note id
+func Archive(id string, flag bool) map[string]interface{} {
+
+	note := &Note{}
+
+	if GetNote(id) == nil {
+		return u.Message(false, "Invalid Note ID")
+	}
+
+	err := GetDB().Model(&note).Where("ID = ?", id).UpdateColumn("archive", flag).Error
 	if err != nil {
 		return nil
 	}
@@ -88,7 +100,7 @@ func Delete(id string) map[string]interface{} {
 	return resp
 }
 
-// get archived / unarchived list of notes accoring to the user
+// GetArtchivedList archived / unarchived list of notes accoring to the user
 func GetArtchivedList(user string, flag bool) []*Note {
 
 	notes := make([]*Note, 0)
@@ -98,4 +110,16 @@ func GetArtchivedList(user string, flag bool) []*Note {
 		return nil
 	}
 	return notes
+}
+
+// GetNote take a note
+func GetNote(id string) *Note {
+
+	note := &Note{}
+
+	err := GetDB().Table("notes").Where("id = ?", id).First(note).Error
+	if err != nil {
+		return nil
+	}
+	return note
 }

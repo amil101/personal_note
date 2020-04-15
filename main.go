@@ -33,7 +33,7 @@ func main() {
 		port = "8000" //localhost
 	}
 
-	fmt.Println(port)
+	fmt.Println("port : " + port)
 
 	err := http.ListenAndServe(":"+port, router) //Launch the app, visit localhost:8000/
 	if err != nil {
