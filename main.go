@@ -16,13 +16,13 @@ func main() {
 	router := mux.NewRouter()
 
 	// TODO add user
-	router.HandleFunc("/api/note", controllers.CreateNote).Methods("POST")
-	router.HandleFunc("/api/note/{id}", controllers.DeleteNote).Methods("DELETE")
-	router.HandleFunc("/api/note/{id}", controllers.UpdateNote).Methods("PUT")
-	router.HandleFunc("/api/note/{id}/archive", controllers.ArchiveNote).Methods("PUT")
-	router.HandleFunc("/api/note/{id}/unarchive", controllers.UnArchiveNote).Methods("PUT")
-	router.HandleFunc("/api/note/archived", controllers.GetArtchivedList).Methods("GET")
-	router.HandleFunc("/api/note/unarchived", controllers.GetUnArtchivedList).Methods("GET")
+	router.HandleFunc("/api/v1/note", controllers.CreateNote).Methods("POST")
+	router.HandleFunc("/api/v1/note/{id}", controllers.DeleteNote).Methods("DELETE")
+	router.HandleFunc("/api/v1/note/{id}", controllers.UpdateNote).Methods("PUT")
+	router.HandleFunc("/api/v1/note/{id}/archive", controllers.ArchiveNote).Methods("PUT")
+	router.HandleFunc("/api/v1/note/{id}/unarchive", controllers.UnArchiveNote).Methods("PUT")
+	router.HandleFunc("/api/v1/note/archived", controllers.GetArtchivedList).Methods("GET")
+	router.HandleFunc("/api/v1/note/unarchived", controllers.GetUnArtchivedList).Methods("GET")
 
 	router.Use(app.BasicAuthentication) //attach Basic auth middleware
 
