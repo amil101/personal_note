@@ -35,7 +35,7 @@ var BasicAuthentication = func(next http.Handler) http.Handler {
 }
 
 func validate(username, password string) bool {
-	if username == "appId" || username == "appId2" && password == "appPassword" {
+	if username == "appId1" || username == "appId2" && password == "appPassword" {
 		return true
 	}
 	return false
