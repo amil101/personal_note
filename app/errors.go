@@ -1,10 +1,11 @@
 package app
 
 import (
-	u "personal_note/utils"
 	"net/http"
+	u "personal_note/utils"
 )
 
+// NotFoundHandler use to show not found server
 var NotFoundHandler = func(next http.Handler) http.Handler {
 
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
