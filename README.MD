@@ -233,7 +233,7 @@ localhost:8000/api/v1/note/1/unarchive
 - scalability and performance 
 - easily deployable, memory safe native binary
 
-### postgre
+### PostgreSQL
 - object-relational database system that uses and extends the SQL language combined with many features 
 - safely store and scale the data workloads
 
@@ -254,4 +254,9 @@ Here we have basic response and logs.
 * Improve Error handling
 
 Here we usa a few HTTP status and codes.
+
+* Unit Testing
+
+we need to have unit testing all levels.
+
 
